@@ -1,0 +1,8 @@
+FROM node:12
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+ENV REACT_APP_STAGE=staging
+EXPOSE 3000
+CMD npm start -- --host 0.0.0.0
