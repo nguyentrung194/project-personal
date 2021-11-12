@@ -1,5 +1,5 @@
 const local = {
-    api: '',
+    api: 'http://localhost:5000/',
 };
 
 const staging = {
