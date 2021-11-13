@@ -44,7 +44,7 @@ function App() {
       return (
         <Routes>
           <Route element={<NavLayout />}>
-            <Route path="/" element={<Navigate to="/user" replace={true} />} />
+            <Route path="/" element={<HomeRoute />} />
             <Route path="/user" element={<UserRoute />} />
             <Route path="/*" element={<Navigate to="/" replace={true} />} />
           </Route>

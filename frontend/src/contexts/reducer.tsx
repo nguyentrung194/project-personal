@@ -6,9 +6,7 @@ export const UserContext = createContext<UserState>({
   name: '',
   time: null,
   email: '',
-  images: [],
-  logs: [],
-  classes: [],
+  books: [],
 });
 
 const initialState: UserState = {
@@ -16,28 +14,18 @@ const initialState: UserState = {
   name: '',
   time: null,
   email: '',
-  images: [],
-  logs: [],
-  classes: [],
+  books: [],
 };
 
 const UserContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(UserReducer, initialState);
 
-  const takePiture = (payload: any) => {
-    dispatch({ type: "TAKE_PITURE", payload });
+  const setBooks = (payload: any) => {
+    dispatch({ type: "SET_BOOKS", payload });
   };
 
   const login = (payload: any) => {
     dispatch({ type: "LOGIN", payload });
-  };
-
-  const setLogs = (payload: any) => {
-    dispatch({ type: "SET_LOGS", payload });
-  };
-
-  const setClasses = (payload: any) => {
-    dispatch({ type: "SET_CLASSES", payload });
   };
 
   const register = (payload: any) => {
@@ -49,12 +37,10 @@ const UserContextProvider = ({ children }: any) => {
   };
 
   const contextValues = {
-    takePiture,
+    setBooks,
     login,
     register,
     logout,
-    setLogs,
-    setClasses,
     ...state,
   };
 

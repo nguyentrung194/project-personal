@@ -1,79 +1,87 @@
-import axios from "axios";
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useFormik } from "formik";
 import { useToasts } from "react-toast-notifications";
-import environment from "../../config";
-import { UserContext } from "../../contexts/reducer";
-
+import { imgSrc } from "../../common/img";
 export const Admin = () => {
     const { addToast } = useToasts();
-    const { classes, setClasses } = useContext(UserContext);
-    axios({
-        url: environment.api + 'class',
-        method: 'GET',
-        headers: {
-            'Content-type': 'application/json'
+    const formik = useFormik({
+        initialValues: {
+            search: ''
         },
-    }).then((res) => {
-        console.log(classes);
-        if (classes?.length === 0 && classes?.length !== res.data.length) {
-            setClasses({ classes: [...res.data] })
-        }
-    }).catch((err) => {
-        console.log(err)
-        addToast("Error!", {
-            appearance: 'error',
-            autoDismiss: true,
-        });
-    })
+        onSubmit: async (values) => {
+            try {
+                formik.setSubmitting(true);
+
+                // code there
+
+                addToast("Add success!", {
+                    appearance: 'success',
+                    autoDismiss: true,
+                });
+                formik.setSubmitting(false);
+            } catch (error) {
+                addToast("Let try again!", {
+                    appearance: 'error',
+                    autoDismiss: true,
+                });
+                console.log(error);
+                formik.setSubmitting(false);
+            }
+        },
+    });
 
     return (
-        <div className="flex justify-center items-center">
-            <div className="max-w-3xl">
-                <div className="p-2 text-center">
-                    <Link to="/admin/create">Create new class</Link>
-                </div>
-                <div className="grid grid-cols-10 p-2 border-b-2 border-blue-400">
-                    <div className="p-2 col-span-2 text-center">
-                        <p>Class id</p>
-                    </div>
-                    <div className="p-2 col-span-2 text-center">
-                        <p>Class name</p>
-                    </div>
-                    <div className="p-2 col-span-6 text-center">
-                        <p>Time</p>
-                    </div>
-                </div>
-                {classes?.map((el: any[]) => {
-                    const time = new Date(Date.parse(el[2]));
-                    return (
-                        <div key={el[0]} className="grid grid-cols-10 p-2">
-                            <div className="p-2 col-span-2 text-center">
-                                <p>{el[0]}</p>
-                            </div>
-                            <div className="p-2 col-span-2 text-center">
-                                <p>{el[1]}</p>
-                            </div>
-                            <div className="p-2 col-span-6 text-center">
-                                <p>
-                                    {
-                                        time.getDate()
-                                        + '-'
-                                        + (time.getMonth() + 1)
-                                        + '-'
-                                        + time.getFullYear()
-                                        + ' '
-                                        + time.getHours()
-                                        + ':'
-                                        + time.getMinutes()
-                                        + ':'
-                                        + time.getSeconds()
-                                    }
-                                </p>
-                            </div>
-                        </div>
-                    )
-                })}
+        <div className="m-2">
+            <h1 className="my-5 text-center">Danh sach</h1>
+      
+            <div className="flex justify-center items-center w-full">
+                <table className="border-separate border border-green-800 w-full">
+                    <thead className="bg-blue-400">
+                        <tr>
+                            <th className="border border-green-600 text-center">STT</th>
+                            <th className="border border-green-600 text-center">Ten</th>
+                            <th className="border border-green-600 text-center">Ma so</th>
+                            <th className="border border-green-600 text-center">Hinh anh</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td className="border border-green-600 text-center">1</td>
+                            <td className="border border-green-600 text-center">Phap luat dai cuong</td>
+                            <td className="border border-green-600 text-center">PLDC_01</td>
+                            <td className="border border-green-600 text-center">
+                                <div className="w-full min-h-80 lg:h-80">
+                                    <img src={imgSrc}
+                                        alt="Front of men&#039;s Basic Tee in black."
+                                        className="w-full h-full object-center object-contain" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="border border-green-600 text-center">1</td>
+                            <td className="border border-green-600 text-center">Phap luat dai cuong</td>
+                            <td className="border border-green-600 text-center">PLDC_01</td>
+                            <td className="border border-green-600 text-center">
+                                <div className="w-full min-h-80 lg:h-80">
+                                    <img src={imgSrc}
+                                        alt="Front of men&#039;s Basic Tee in black."
+                                        className="w-full h-full object-center object-contain" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td className="border border-green-600 text-center">1</td>
+                            <td className="border border-green-600 text-center">Phap luat dai cuong</td>
+                            <td className="border border-green-600 text-center">PLDC_01</td>
+                            <td className="border border-green-600 text-center">
+                                <div className="w-full min-h-80 lg:h-80">
+                                    <img src={imgSrc}
+                                        alt="Front of men&#039;s Basic Tee in black."
+                                        className="w-full h-full object-center object-contain" />
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     )

@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 import { UserContext } from "../../contexts/reducer"
+import { Search } from "./search"
 
 export const Nav = () => {
     const {isLogin, logout} = useContext(UserContext)
@@ -8,6 +9,9 @@ export const Nav = () => {
         <div className="bg-blue-200 flex justify-between items-center p-4">
             <div className="px-4">
                 <Link to="/" >Logo</Link>
+            </div>
+            <div>
+                <Search />
             </div>
             {!isLogin?<div className="flex justify-around items-center">
                 <div className="px-4">
