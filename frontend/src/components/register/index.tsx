@@ -13,6 +13,8 @@ export const Register = () => {
             name: '',
             email: '',
             maso: '',
+            password: '',
+            confirmPassword: '',
         },
         onSubmit: async (values) => {
             try {
@@ -82,6 +84,32 @@ export const Register = () => {
                         name="email"
                         type="text"
                         value={formik.values.email}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" >
+                        Mat khau:
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                        name="password"
+                        type="text"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" >
+                        Xac nhan lai mat khau:
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                        name="confirmPassword"
+                        type="text"
+                        value={formik.values.confirmPassword}
                         onChange={formik.handleChange}
                     />
                 </div>

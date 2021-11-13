@@ -50,7 +50,7 @@ export const Search = () => {
                 e.preventDefault();
                 query.delete("page");
                 query.set("search", search);
-                history(`/admin/?${query}`);
+                history(`${location.pathname}?${query}`);
             }}
             className="w-full max-w-sm bg-blue-100">
             <div className="flex items-center">
