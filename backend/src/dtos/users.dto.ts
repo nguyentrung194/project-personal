@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsArray, IsEmail, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
@@ -12,4 +12,7 @@ export class CreateUserDto {
 
   @IsString()
   public mssv: string;
+
+  @IsArray()
+  public books: string[];
 }

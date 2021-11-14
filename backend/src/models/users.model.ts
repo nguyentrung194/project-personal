@@ -19,6 +19,11 @@ const userSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  books: {
+    type: Array(String),
+    required: false,
+    default: [],
+  },
 });
 
 const userModel = model<User & Document>('User', userSchema);
