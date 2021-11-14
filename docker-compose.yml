@@ -12,12 +12,12 @@ services:
     restart: unless-stopped
     networks:
       - backend
-  server:
+  backend:
     build:
       context: ./backend
       target: development-build-stage
       dockerfile: Dockerfile
-    container_name: server
+    container_name: backend
     ports:
       - '5000:5000'
     environment:

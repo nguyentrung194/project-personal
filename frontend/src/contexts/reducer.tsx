@@ -1,20 +1,28 @@
 import React, { createContext, useReducer } from "react";
-import { UserReducer, UserState } from "./context";
+import { UserReducer } from "./context";
+import { imgSrc } from "../common/img";
+import { UserState } from "../interfaces";
+
 
 export const UserContext = createContext<UserState>({
   isLogin: false,
   name: '',
-  time: null,
   email: '',
   books: [],
+  mssv: '',
 });
 
 const initialState: UserState = {
   isLogin: false,
   name: '',
-  time: null,
+  mssv: '',
   email: '',
-  books: [],
+  books: [
+    { id: 1, name: 'Phap luat dai cuong', maso: 'PLDC_01', image: imgSrc },
+    { id: 2, name: 'Phap luat dai cuong', maso: 'PLDC_02', image: imgSrc },
+    { id: 3, name: 'Phap luat dai cuong', maso: 'PLDC_03', image: imgSrc },
+    { id: 4, name: 'Phap luat dai cuong', maso: 'PLDC_04', image: imgSrc }
+  ],
 };
 
 const UserContextProvider = ({ children }: any) => {
