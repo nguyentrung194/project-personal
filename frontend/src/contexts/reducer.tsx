@@ -3,25 +3,24 @@ import { UserReducer } from "./context";
 import { imgSrc } from "../common/img";
 import { UserState } from "../interfaces";
 
-
 export const UserContext = createContext<UserState>({
   isLogin: false,
-  name: '',
-  email: '',
+  name: "",
+  email: "",
   books: [],
-  mssv: '',
+  mssv: "",
 });
 
 const initialState: UserState = {
   isLogin: false,
-  name: '',
-  mssv: '',
-  email: '',
+  name: "",
+  mssv: "",
+  email: "",
   books: [
-    { id: 1, name: 'Phap luat dai cuong', maso: 'PLDC_01', image: imgSrc },
-    { id: 2, name: 'Phap luat dai cuong', maso: 'PLDC_02', image: imgSrc },
-    { id: 3, name: 'Phap luat dai cuong', maso: 'PLDC_03', image: imgSrc },
-    { id: 4, name: 'Phap luat dai cuong', maso: 'PLDC_04', image: imgSrc }
+    { id: 1, name: "Phap luat dai cuong", maso: "PLDC_01", image: imgSrc },
+    { id: 2, name: "Phap luat dai cuong", maso: "PLDC_02", image: imgSrc },
+    { id: 3, name: "Phap luat dai cuong", maso: "PLDC_03", image: imgSrc },
+    { id: 4, name: "Phap luat dai cuong", maso: "PLDC_04", image: imgSrc },
   ],
 };
 

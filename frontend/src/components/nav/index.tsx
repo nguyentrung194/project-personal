@@ -25,11 +25,7 @@ export const Nav = () => {
       ) : (
         <div className="flex justify-around items-center">
           <div className="px-4">
-            <Link
-              to="user"
-            >
-              Profile
-            </Link>
+            <Link to="user">Profile</Link>
           </div>
           <div className="px-4">
             <Link

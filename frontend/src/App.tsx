@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
-import './App.css';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { HomeRoute } from './route/home.route';
-import { RegisterRoute } from './route/register.route';
-import { LoginRoute } from './route/login.route';
-import { AdminRoute } from './route/admin.route';
-import { CreateNewClassRoute } from './route/admin-create.route';
-import { NavLayout } from './layouts/nav';
-import { UserContext } from './contexts/reducer';
-import { UserRoute } from './route/user.route';
-import { ErrorRoute } from './route/error.route';
+import React, { useContext } from "react";
+import "./App.css";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { HomeRoute } from "./route/home.route";
+import { RegisterRoute } from "./route/register.route";
+import { LoginRoute } from "./route/login.route";
+import { AdminRoute } from "./route/admin.route";
+import { CreateNewClassRoute } from "./route/admin-create.route";
+import { NavLayout } from "./layouts/nav";
+import { UserContext } from "./contexts/reducer";
+import { UserRoute } from "./route/user.route";
+import { ErrorRoute } from "./route/error.route";
 
 function App() {
   const { isLogin, user_id } = useContext(UserContext);
@@ -24,9 +24,9 @@ function App() {
         </Route>
       </Routes>
     );
-  }
-  else {
-    if (user_id === "1") { // role admin
+  } else {
+    if (user_id === "1") {
+      // role admin
       return (
         <Routes>
           <Route element={<NavLayout />}>
@@ -39,8 +39,8 @@ function App() {
           </Route>
         </Routes>
       );
-    }
-    else if (user_id !== "1") { // role user
+    } else if (user_id !== "1") {
+      // role user
       return (
         <Routes>
           <Route element={<NavLayout />}>
