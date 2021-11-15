@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class CreateBookDto {
   @IsString()
@@ -11,8 +11,10 @@ export class CreateBookDto {
   public image: string;
 
   @IsString()
+  @IsOptional()
   public user_id: string;
   
   @IsString()
+  @IsOptional()
   public available: boolean;
 }

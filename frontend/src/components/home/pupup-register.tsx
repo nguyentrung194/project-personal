@@ -44,7 +44,7 @@ export const BookUp = ({ id }: { id: any }) => {
 
         // handle when success
         setBooks({
-          books: [...books.filter((el: Books) => `${el.id}` !== `${id}`)],
+          books: [...books.filter((el: Books) => `${el.maso}` !== `${id}`)],
         });
         query.delete("book_id");
         history(`${location.pathname}`);

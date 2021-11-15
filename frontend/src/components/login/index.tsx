@@ -1,6 +1,8 @@
+import axios from "axios";
 import { useFormik } from "formik";
 import React, { useContext } from "react";
 import { useToasts } from "react-toast-notifications";
+import environment from "../../config";
 import { UserContext } from "../../contexts/reducer";
 
 export const Login = () => {
@@ -16,9 +18,24 @@ export const Login = () => {
         formik.setSubmitting(true);
 
         // code there
-        login({
-          email: values.email,
-        });
+        axios({
+          url: `${environment.api}login`,
+          method: "POST",
+          data: {
+            email: values.email,
+            password: values.password,
+          },
+        })
+          .then(({ data: { data } }) => {
+            login({
+              isLogin: true,
+              name: data.name,
+              email: data.email,
+              mssv: data.mssv,
+              user_id: data._id,
+            });
+          })
+          .catch((err) => console.log(err));
         addToast(`Wellcome`, {
           appearance: "success",
           autoDismiss: true,

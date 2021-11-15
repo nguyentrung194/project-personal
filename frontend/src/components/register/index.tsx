@@ -32,6 +32,7 @@ export const Register = () => {
             email: values.email,
             mssv: values.mssv,
             password: values.password,
+            books: [],
           },
         })
           .then(({ data: { data } }) => {

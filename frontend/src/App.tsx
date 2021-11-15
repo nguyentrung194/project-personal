@@ -25,7 +25,7 @@ function App() {
       </Routes>
     );
   } else {
-    if (user_id === "1") {
+    if (user_id === "6191d876a7048132381695c9") {
       // role admin
       return (
         <Routes>
@@ -39,7 +39,7 @@ function App() {
           </Route>
         </Routes>
       );
-    } else if (user_id !== "1") {
+    } else if (user_id !== "6191d876a7048132381695c9") {
       // role user
       return (
         <Routes>
