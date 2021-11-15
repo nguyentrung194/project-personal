@@ -44,7 +44,10 @@ export const Register = () => {
               user_id: data._id,
             });
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err);
+            throw new Error(err);
+          });
 
         addToast("Register success!", {
           appearance: "success",

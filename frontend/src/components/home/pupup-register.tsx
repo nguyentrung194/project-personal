@@ -1,7 +1,9 @@
+import axios from "axios";
 import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import environment from "../../config";
 import { UserContext } from "../../contexts/reducer";
 import { useQueryURL } from "../../hooks/use-query-url";
 import { Books } from "../../interfaces";
@@ -41,13 +43,25 @@ export const BookUp = ({ id }: { id: any }) => {
         formik.setSubmitting(true);
 
         // code there
-
-        // handle when success
-        setBooks({
-          books: [...books.filter((el: Books) => `${el.maso}` !== `${id}`)],
-        });
-        query.delete("book_id");
-        history(`${location.pathname}`);
+        axios({
+          url: `${environment.api}books`,
+          method: "PUT",
+          data: {
+            maso: values.id,
+          },
+        })
+          .then((res) => {
+            console.log(res);
+            setBooks({
+              books: [...books.filter((el: Books) => `${el.maso}` !== `${id}`)],
+            });
+            query.delete("book_id");
+            history(`${location.pathname}`);
+          })
+          .catch((err) => {
+            console.log(err);
+            throw new Error(err);
+          });
         addToast(`Dang ky thanh cong`, {
           appearance: "success",
           autoDismiss: true,
@@ -103,7 +117,7 @@ export const BookUp = ({ id }: { id: any }) => {
                     className="text-lg leading-6 font-medium text-gray-900"
                     id="modal-title"
                   >
-                    Xac nhan dang ky sach co id: {id}
+                    Xac nhan dang ky sach co maso: {id}
                   </h3>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">

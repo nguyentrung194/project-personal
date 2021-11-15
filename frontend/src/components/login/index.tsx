@@ -35,7 +35,10 @@ export const Login = () => {
               user_id: data._id,
             });
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            console.log(err);
+            throw new Error(err);
+          });
         addToast(`Wellcome`, {
           appearance: "success",
           autoDismiss: true,

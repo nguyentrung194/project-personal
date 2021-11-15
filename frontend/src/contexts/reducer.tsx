@@ -9,18 +9,20 @@ export const UserContext = createContext<UserState>({
   email: "",
   books: [],
   mssv: "",
+  user_id: "",
 });
 
 const initialState: UserState = {
-  isLogin: false,
-  name: "",
-  mssv: "",
-  email: "",
+  isLogin: Boolean(localStorage.getItem("isLogin") === "true" ? true : false),
+  user_id: localStorage.getItem("user_id") || "",
+  name: localStorage.getItem("name") || "",
+  mssv: localStorage.getItem("mssv") || "",
+  email: localStorage.getItem("email") || "",
   books: [
-    { id: 1, name: "Phap luat dai cuong", maso: "PLDC_01", image: imgSrc },
-    { id: 2, name: "Phap luat dai cuong", maso: "PLDC_02", image: imgSrc },
-    { id: 3, name: "Phap luat dai cuong", maso: "PLDC_03", image: imgSrc },
-    { id: 4, name: "Phap luat dai cuong", maso: "PLDC_04", image: imgSrc },
+    { _id: 1, name: "Phap luat dai cuong", maso: "PLDC_01", image: imgSrc },
+    { _id: 2, name: "Phap luat dai cuong", maso: "PLDC_02", image: imgSrc },
+    { _id: 3, name: "Phap luat dai cuong", maso: "PLDC_03", image: imgSrc },
+    { _id: 4, name: "Phap luat dai cuong", maso: "PLDC_04", image: imgSrc },
   ],
 };
 

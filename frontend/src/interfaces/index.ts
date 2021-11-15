@@ -1,5 +1,5 @@
 export interface Books {
-  id: any;
+  _id: any;
   name: string;
   maso: string;
   image: any;

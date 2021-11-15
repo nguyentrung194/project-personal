@@ -27,7 +27,7 @@ export const Home = () => {
           </thead>
           <tbody>
             {books.map((el: Books, index: number) => {
-              return <Book key={el.id} props={el} index={index + 1} />;
+              return <Book key={el._id} props={el} index={index + 1} />;
             })}
           </tbody>
         </table>
