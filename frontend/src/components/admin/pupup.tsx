@@ -8,7 +8,7 @@ import { UserContext } from "../../contexts/reducer";
 import { useQueryURL } from "../../hooks/use-query-url";
 import { Books } from "../../interfaces";
 
-export const BookUpAdmin = ({ id }: { id: any }) => {
+export const BookUpAdmin = () => {
   const location = useLocation();
   const history = useNavigate();
   const query = useQueryURL();
@@ -16,6 +16,8 @@ export const BookUpAdmin = ({ id }: { id: any }) => {
   const [isFirst, setFirst] = useState(false);
   const [indexStatus, setIndexStatus] = useState(false);
   const { user_id, setBooks, books } = useContext(UserContext);
+
+  const id = query.get("book_id");
 
   useEffect(() => {
     if (id) {
@@ -57,18 +59,21 @@ export const BookUpAdmin = ({ id }: { id: any }) => {
             });
             query.delete("book_id");
             history(`${location.pathname}`);
+            addToast(`Dang ky thanh cong`, {
+              appearance: "success",
+              autoDismiss: true,
+            });
           })
           .catch((err) => {
             console.log(err);
-            throw new Error(err);
+            addToast("Sach da duoc dang ky hoac khong ton tai!", {
+              appearance: "error",
+              autoDismiss: true,
+            });
           });
-        addToast(`Dang ky thanh cong`, {
-          appearance: "success",
-          autoDismiss: true,
-        });
         formik.setSubmitting(false);
       } catch (error) {
-        addToast("Sach da duoc dang ky hoac khong ton tai!", {
+        addToast("Ban thu kiem tra lai duong truyen!", {
           appearance: "error",
           autoDismiss: true,
         });
@@ -89,6 +94,10 @@ export const BookUpAdmin = ({ id }: { id: any }) => {
     >
       <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div
+          onClick={() => {
+            query.delete("book_id");
+            history(`${location.pathname}`);
+          }}
           className={`${isFirst ? "opacity-100" : "opacity-0"} ${
             isOpen ? "ease-in duration-200" : "ease-out duration-300"
           } fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity`}
@@ -110,26 +119,26 @@ export const BookUpAdmin = ({ id }: { id: any }) => {
               isOpen ? "ease-in duration-200" : "ease-out duration-300"
             } inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full`}
           >
-            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-              <div className="sm:flex sm:items-start">
-                <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                  <h3
-                    className="text-lg leading-6 font-medium text-gray-900"
-                    id="modal-title"
-                  >
-                    Xac nhan dang ky sach co maso: {id}
-                  </h3>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Ban co the den tu sach de nhan giao trinh vao khung gio
-                      hanh chinh.
-                    </p>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div className="sm:flex sm:items-start">
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3
+                      className="text-lg leading-6 font-medium text-gray-900"
+                      id="modal-title"
+                    >
+                      Sach co maso: {id}
+                    </h3>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500">
+                        Ban co the den tu sach de nhan giao trinh vao khung gio
+                        hanh chinh.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-              <form onSubmit={formik.handleSubmit}>
+              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="submit"
                   disabled={formik.isSubmitting}
@@ -137,18 +146,18 @@ export const BookUpAdmin = ({ id }: { id: any }) => {
                 >
                   Xac nhan
                 </button>
-              </form>
-              <button
-                onClick={() => {
-                  query.delete("book_id");
-                  history(`${location.pathname}`);
-                }}
-                type="button"
-                className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-              >
-                Huy bo
-              </button>
-            </div>
+                <button
+                  onClick={() => {
+                    query.delete("book_id");
+                    history(`${location.pathname}`);
+                  }}
+                  type="button"
+                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  Huy bo
+                </button>
+              </div>
+            </form>
           </div>
         ) : (
           <div
@@ -167,12 +176,11 @@ export const BookUpAdmin = ({ id }: { id: any }) => {
                     className="text-lg leading-6 font-medium text-gray-900"
                     id="modal-title"
                   >
-                    Ban can dang nhap truoc khi dang ky muon sach
+                    Ban can dang nhap truoc
                   </h3>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Va sau do ban co the den tu sach de nhan giao trinh vao
-                      khung gio hanh chinh.
+                      Va sau do ban co the thuc hien yeu cau.
                     </p>
                   </div>
                 </div>

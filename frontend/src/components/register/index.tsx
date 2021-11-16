@@ -43,19 +43,21 @@ export const Register = () => {
               mssv: data.mssv,
               user_id: data._id,
             });
+            addToast("Register success!", {
+              appearance: "success",
+              autoDismiss: true,
+            });
           })
           .catch((err) => {
             console.log(err);
-            throw new Error(err);
+            addToast("Dang ky khong thanh cong!", {
+              appearance: "error",
+              autoDismiss: true,
+            });
           });
-
-        addToast("Register success!", {
-          appearance: "success",
-          autoDismiss: true,
-        });
         formik.setSubmitting(false);
       } catch (error) {
-        addToast("Let try again!", {
+        addToast("Ban hay thu kiem tra lai duong truyen!", {
           appearance: "error",
           autoDismiss: true,
         });

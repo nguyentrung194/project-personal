@@ -57,18 +57,21 @@ export const BookUp = ({ id }: { id: any }) => {
             });
             query.delete("book_id");
             history(`${location.pathname}`);
+            addToast(`Dang ky thanh cong`, {
+              appearance: "success",
+              autoDismiss: true,
+            });
           })
           .catch((err) => {
             console.log(err);
-            throw new Error(err);
+            addToast("Sach da duoc dang ky hoac khong ton tai!", {
+              appearance: "error",
+              autoDismiss: true,
+            });
           });
-        addToast(`Dang ky thanh cong`, {
-          appearance: "success",
-          autoDismiss: true,
-        });
         formik.setSubmitting(false);
       } catch (error) {
-        addToast("Sach da duoc dang ky hoac khong ton tai!", {
+        addToast("Ban hay thu kiem tra lai duong truyen", {
           appearance: "error",
           autoDismiss: true,
         });

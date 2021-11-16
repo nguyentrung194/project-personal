@@ -34,18 +34,21 @@ export const Login = () => {
               mssv: data.mssv,
               user_id: data._id,
             });
+            addToast(`Wellcome`, {
+              appearance: "success",
+              autoDismiss: true,
+            });
           })
           .catch((err) => {
             console.log(err);
-            throw new Error(err);
+            addToast("Dang nhap khong thanh cong!", {
+              appearance: "error",
+              autoDismiss: true,
+            });
           });
-        addToast(`Wellcome`, {
-          appearance: "success",
-          autoDismiss: true,
-        });
         formik.setSubmitting(false);
       } catch (error) {
-        addToast("Let try again!", {
+        addToast("Ban hay kiem tra lai duong truyen!", {
           appearance: "error",
           autoDismiss: true,
         });

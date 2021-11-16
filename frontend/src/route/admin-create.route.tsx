@@ -1,6 +1,6 @@
 import React from "react";
-import { CreateNewClassPage } from "../components/admin/create";
+import { CreateBook } from "../components/admin/create";
 
 export const CreateNewClassRoute = () => {
-  return <CreateNewClassPage />;
+  return <CreateBook />;
 };
