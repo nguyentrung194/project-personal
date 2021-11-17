@@ -40,7 +40,7 @@ class BooksController {
 
   public updateBook = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const bookId: string = req.params.id;
+      const bookId: string = req.body._id;
       const bookData: CreateBookDto = req.body;
       const updateBookData: Book = await this.bookService.updateBook(bookId, bookData);
 

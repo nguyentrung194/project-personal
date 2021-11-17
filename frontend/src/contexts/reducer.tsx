@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from "react";
 import { UserReducer } from "./context";
-import { imgSrc } from "../common/img";
 import { UserState } from "../interfaces";
 
 export const UserContext = createContext<UserState>({
@@ -18,12 +17,7 @@ const initialState: UserState = {
   name: localStorage.getItem("name") || "",
   mssv: localStorage.getItem("mssv") || "",
   email: localStorage.getItem("email") || "",
-  books: [
-    { _id: 1, name: "Phap luat dai cuong", maso: "PLDC_01", image: imgSrc },
-    { _id: 2, name: "Phap luat dai cuong", maso: "PLDC_02", image: imgSrc },
-    { _id: 3, name: "Phap luat dai cuong", maso: "PLDC_03", image: imgSrc },
-    { _id: 4, name: "Phap luat dai cuong", maso: "PLDC_04", image: imgSrc },
-  ],
+  books: [],
 };
 
 const UserContextProvider = ({ children }: any) => {

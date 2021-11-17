@@ -6,7 +6,6 @@ import { useToasts } from "react-toast-notifications";
 import environment from "../../config";
 import { UserContext } from "../../contexts/reducer";
 import { useQueryURL } from "../../hooks/use-query-url";
-import { Books } from "../../interfaces";
 
 export const CreateBook = () => {
   const location = useLocation();
@@ -73,11 +72,11 @@ export const CreateBook = () => {
         })
           .then((res) => {
             console.log(res);
-            // setBooks({
-            //   books: [
-            //     ...books.filter((el: Books) => `${el.maso}` !== `${add}`),
-            //   ],
-            // });
+            setBooks({
+              books: [
+                ...books, res.data.data,
+              ],
+            });
             query.delete("add");
             history(`${location.pathname}`);
             addToast(`Them thanh cong`, {

@@ -3,6 +3,8 @@ export interface Books {
   name: string;
   maso: string;
   image: any;
+  available?: boolean;
+  user_id?: string;
 }
 
 export interface UserState {

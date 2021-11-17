@@ -21,6 +21,11 @@ export const BookUpAdmin = () => {
 
   useEffect(() => {
     if (id) {
+      const item = books.filter((el) => {
+        return el.maso === id;
+      })[0];
+      formik.setValues({ ...item });
+      console.log(item);
       setFirst(true);
       setTimeout(() => {
         setOpen(true);
@@ -36,44 +41,67 @@ export const BookUpAdmin = () => {
   }, [id]);
 
   const { addToast } = useToasts();
+
+  const toBase64 = (file: any) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+
   const formik = useFormik({
     initialValues: {
-      id: id,
+      _id: "",
+      name: "",
+      maso: "",
+      image: "",
+      available: false,
+      user_id: "",
     },
     onSubmit: async (values) => {
       try {
         formik.setSubmitting(true);
 
         // code there
+        const result = await toBase64(values.image).catch((err) => {
+          console.log(err);
+          addToast("File khong hop le!", {
+            appearance: "error",
+            autoDismiss: true,
+          });
+        });
+
         axios({
           url: `${environment.api}books`,
           method: "PUT",
           data: {
-            maso: values.id,
+            ...values,
+            image: result,
           },
         })
           .then((res) => {
             console.log(res);
             setBooks({
-              books: [...books.filter((el: Books) => `${el.maso}` !== `${id}`)],
+              books: [...books, res.data.data],
             });
-            query.delete("book_id");
+            query.delete("add");
             history(`${location.pathname}`);
-            addToast(`Dang ky thanh cong`, {
+            addToast(`Them thanh cong`, {
               appearance: "success",
               autoDismiss: true,
             });
           })
           .catch((err) => {
             console.log(err);
-            addToast("Sach da duoc dang ky hoac khong ton tai!", {
+            addToast("Ma so da ton tai!", {
               appearance: "error",
               autoDismiss: true,
             });
           });
         formik.setSubmitting(false);
       } catch (error) {
-        addToast("Ban thu kiem tra lai duong truyen!", {
+        addToast("Ban hay thu kiem tra lai duong truyen!", {
           appearance: "error",
           autoDismiss: true,
         });
@@ -131,9 +159,94 @@ export const BookUpAdmin = () => {
                     </h3>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Ban co the den tu sach de nhan giao trinh vao khung gio
-                        hanh chinh.
+                        Ban co the chinh sua tai day.
                       </p>
+                    </div>
+                    <div className="mt-2">
+                      <label className="block text-gray-700 text-sm font-bold mb-2">
+                        Ma so:
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                        name="maso"
+                        type="text"
+                        value={formik.values.maso}
+                        onChange={formik.handleChange}
+                      />
+                    </div>
+                    <div className="mt-2">
+                      <label className="block text-gray-700 text-sm font-bold mb-2">
+                        Ten sach:
+                      </label>
+                      <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                        name="name"
+                        type="text"
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                      />
+                    </div>
+                    <div className="mt-2">
+                      {formik.values.image ? (
+                        <img src={formik.values.image} alt="img" />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    <div className="mt-2">
+                      <label className="block text-gray-700 text-sm font-bold mb-2">
+                        Hinh anh:
+                      </label>
+                      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                        <div className="space-y-1 text-center">
+                          <svg
+                            className="mx-auto h-12 w-12 text-gray-400"
+                            stroke="currentColor"
+                            fill="none"
+                            viewBox="0 0 48 48"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          <div className="flex text-sm text-gray-600">
+                            <label
+                              htmlFor="image"
+                              className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                            >
+                              <span>Upload a file</span>
+                              <input
+                                id="image"
+                                name="image"
+                                type="file"
+                                className="sr-only"
+                                onChange={async (event: any) => {
+                                  const result = await toBase64(
+                                    event.currentTarget.files[0]
+                                  ).catch((err) => {
+                                    console.log(err);
+                                    addToast("File khong hop le!", {
+                                      appearance: "error",
+                                      autoDismiss: true,
+                                    });
+                                  });
+                                  formik.setFieldValue("image", result);
+                                }}
+                              />
+                            </label>
+                            <p className="pl-1">or drag and drop</p>
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            PNG, JPG, GIF up to 10MB
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
