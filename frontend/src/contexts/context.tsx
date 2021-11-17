@@ -7,6 +7,11 @@ export const UserReducer = (state: UserState, action: any) => {
         ...state,
         books: action.payload.books,
       };
+    case "SET_BOOK":
+      return {
+        ...state,
+        book: action.payload.book,
+      };
     case "LOGIN":
       localStorage.setItem("isLogin", "true");
       localStorage.setItem("name", action.payload.name);

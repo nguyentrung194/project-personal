@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/reducer";
 import { useQueryURL } from "../hooks/use-query-url";
 import { Books } from "../interfaces";
 
@@ -6,9 +8,12 @@ export const Book = ({ props, index }: { props: Books; index: number }) => {
   const location = useLocation();
   const history = useNavigate();
   const query = useQueryURL();
+  const { setBook } = useContext(UserContext);
+
   return (
     <tr
       onClick={() => {
+        setBook({ book: props });
         query.set("book_id", props.maso);
         history(`${location.pathname}?${query}`);
       }}

@@ -1,14 +1,32 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/reducer";
 import { useQueryURL } from "../../hooks/use-query-url";
 import { Books } from "../../interfaces";
 import { Book } from "../../common/book";
 import { BookUp } from "./pupup-register";
+import axios from "axios";
+import environment from "../../config";
 
 export const Home = () => {
   const query = useQueryURL();
   const id = query.get("book_id");
-  const { books } = useContext(UserContext);
+  const { books, setBooks } = useContext(UserContext);
+  useEffect(() => {
+    const getBooks = async () => {
+      await axios({
+        url: `${environment.api}books`,
+        method: "GET",
+      }).then((res) => {
+        console.log(res);
+        setBooks({
+          books: [...res.data.data].filter((el) => {
+            return el.user_id === "";
+          }),
+        });
+      });
+    };
+    getBooks();
+  }, []);
 
   return (
     <div className="m-2">

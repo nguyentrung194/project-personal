@@ -10,6 +10,7 @@ export interface Books {
 export interface UserState {
   user_id?: any;
   books: any[];
+  book: Books;
   isLogin: boolean;
   name: string;
   mssv: string;
@@ -18,4 +19,5 @@ export interface UserState {
   register?: any;
   logout?: any;
   setBooks?: any;
+  setBook?: any;
 }

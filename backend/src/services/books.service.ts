@@ -41,7 +41,7 @@ class BookService {
       if (findBook && findBook._id != bookId) throw new HttpException(409, `It's maso ${bookData.maso} already exists`);
     }
 
-    const updateBookById: Book = await this.books.findByIdAndUpdate(bookId, { bookData });
+    const updateBookById: Book = await this.books.findByIdAndUpdate(bookId, { ...bookData });
     if (!updateBookById) throw new HttpException(409, "It's not Book");
 
     return updateBookById;

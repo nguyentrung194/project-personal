@@ -17,7 +17,11 @@ export const Admin = () => {
         method: "GET",
       }).then((res) => {
         console.log(res);
-        setBooks({ books: res.data.data });
+        setBooks({
+          books: [...res.data.data].filter((el) => {
+            return el.user_id === "";
+          }),
+        });
       });
     };
     getBooks();

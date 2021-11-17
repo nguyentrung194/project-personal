@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class CreateBookDto {
   @IsString()
@@ -14,7 +14,7 @@ export class CreateBookDto {
   @IsOptional()
   public user_id: string;
   
-  @IsString()
+  @IsBoolean()
   @IsOptional()
   public available: boolean;
 }

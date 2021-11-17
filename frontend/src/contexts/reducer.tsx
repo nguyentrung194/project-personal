@@ -1,12 +1,20 @@
 import React, { createContext, useReducer } from "react";
 import { UserReducer } from "./context";
-import { UserState } from "../interfaces";
+import { Books, UserState } from "../interfaces";
 
 export const UserContext = createContext<UserState>({
   isLogin: false,
   name: "",
   email: "",
   books: [],
+  book: {
+    _id: "",
+    name: "",
+    maso: "",
+    image: "",
+    available: false,
+    user_id: "",
+  },
   mssv: "",
   user_id: "",
 });
@@ -18,6 +26,14 @@ const initialState: UserState = {
   mssv: localStorage.getItem("mssv") || "",
   email: localStorage.getItem("email") || "",
   books: [],
+  book: {
+    _id: "",
+    name: "",
+    maso: "",
+    image: "",
+    available: false,
+    user_id: "",
+  },
 };
 
 const UserContextProvider = ({ children }: any) => {
@@ -25,6 +41,10 @@ const UserContextProvider = ({ children }: any) => {
 
   const setBooks = (payload: any) => {
     dispatch({ type: "SET_BOOKS", payload });
+  };
+
+  const setBook = (payload: any) => {
+    dispatch({ type: "SET_BOOK", payload });
   };
 
   const login = (payload: any) => {
@@ -44,6 +64,7 @@ const UserContextProvider = ({ children }: any) => {
     login,
     register,
     logout,
+    setBook,
     ...state,
   };
 

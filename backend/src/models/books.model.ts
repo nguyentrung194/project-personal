@@ -18,6 +18,7 @@ const bookSchema: Schema = new Schema({
   user_id: {
     type: String,
     required: false,
+    default: '',
   },
   available: {
     type: Boolean,

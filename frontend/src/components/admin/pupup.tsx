@@ -15,17 +15,38 @@ export const BookUpAdmin = () => {
   const [isOpen, setOpen] = useState(false);
   const [isFirst, setFirst] = useState(false);
   const [indexStatus, setIndexStatus] = useState(false);
-  const { user_id, setBooks, books } = useContext(UserContext);
+  const { user_id, setBooks, books, book } = useContext(UserContext);
 
   const id = query.get("book_id");
 
   useEffect(() => {
     if (id) {
-      const item = books.filter((el) => {
-        return el.maso === id;
-      })[0];
-      formik.setValues({ ...item });
-      console.log(item);
+      if (book._id === "") {
+        if (books.length) {
+          const item = books.filter((el) => {
+            return el.maso === id;
+          })[0];
+          if (item?._id) {
+            formik.setValues({
+              _id: item._id,
+              name: item.name,
+              maso: item.maso,
+              image: item.image,
+              available: item.available || false,
+              user_id: item.user_id || "",
+            });
+          }
+        }
+      } else {
+        formik.setValues({
+          _id: book._id,
+          name: book.name,
+          maso: book.maso,
+          image: book.image,
+          available: book.available || false,
+          user_id: book.user_id || "",
+        });
+      }
       setFirst(true);
       setTimeout(() => {
         setOpen(true);
@@ -38,7 +59,7 @@ export const BookUpAdmin = () => {
         setIndexStatus(false);
       }, 300);
     }
-  }, [id]);
+  }, [id, books]);
 
   const { addToast } = useToasts();
 
@@ -73,7 +94,7 @@ export const BookUpAdmin = () => {
         });
 
         axios({
-          url: `${environment.api}books`,
+          url: `${environment.api}books/${values._id}`,
           method: "PUT",
           data: {
             ...values,

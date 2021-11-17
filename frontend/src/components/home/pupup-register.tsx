@@ -15,10 +15,35 @@ export const BookUp = ({ id }: { id: any }) => {
   const [isOpen, setOpen] = useState(false);
   const [isFirst, setFirst] = useState(false);
   const [indexStatus, setIndexStatus] = useState(false);
-  const { user_id, setBooks, books } = useContext(UserContext);
-
+  const { user_id, setBooks, books, book } = useContext(UserContext);
   useEffect(() => {
     if (id) {
+      if (book._id === "") {
+        if (books.length) {
+          const item = books.filter((el) => {
+            return el.maso === id;
+          })[0];
+          if (item?._id) {
+            formik.setValues({
+              _id: item._id,
+              name: item.name,
+              maso: item.maso,
+              image: item.image,
+              available: item.available || false,
+              user_id: item.user_id || "",
+            });
+          }
+        }
+      } else {
+        formik.setValues({
+          _id: book._id,
+          name: book.name,
+          maso: book.maso,
+          image: book.image,
+          available: book.available || false,
+          user_id: book.user_id || "",
+        });
+      }
       setFirst(true);
       setTimeout(() => {
         setOpen(true);
@@ -31,12 +56,17 @@ export const BookUp = ({ id }: { id: any }) => {
         setIndexStatus(false);
       }, 300);
     }
-  }, [id]);
+  }, [id, books]);
 
   const { addToast } = useToasts();
   const formik = useFormik({
     initialValues: {
-      id: id,
+      _id: "",
+      name: "",
+      maso: "",
+      image: "",
+      available: false,
+      user_id: "",
     },
     onSubmit: async (values) => {
       try {
@@ -44,10 +74,14 @@ export const BookUp = ({ id }: { id: any }) => {
 
         // code there
         axios({
-          url: `${environment.api}books`,
+          url: `${environment.api}books/${values._id}`,
           method: "PUT",
           data: {
-            maso: values.id,
+            name: values.name,
+            maso: values.maso,
+            image: values.image,
+            available: values.available,
+            user_id: user_id,
           },
         })
           .then((res) => {
