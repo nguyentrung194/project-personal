@@ -36,6 +36,7 @@ export const Register = () => {
           },
         })
           .then(({ data: { data } }) => {
+            console.log(data);
             register({
               isLogin: true,
               name: data.name,

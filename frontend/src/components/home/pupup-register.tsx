@@ -83,6 +83,7 @@ export const BookUp = ({ id }: { id: any }) => {
             available: values.available,
             user_id: user_id,
           },
+          withCredentials: true,
         })
           .then((res) => {
             console.log(res);

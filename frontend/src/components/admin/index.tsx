@@ -15,6 +15,7 @@ export const Admin = () => {
       await axios({
         url: `${environment.api}books`,
         method: "GET",
+        withCredentials: true,
       }).then((res) => {
         console.log(res);
         setBooks({

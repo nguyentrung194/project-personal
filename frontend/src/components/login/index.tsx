@@ -25,7 +25,12 @@ export const Login = () => {
             email: values.email,
             password: values.password,
           },
+          withCredentials: true,
         })
+          .then((res) => {
+            console.log(res);
+            return res;
+          })
           .then(({ data: { data } }) => {
             login({
               isLogin: true,

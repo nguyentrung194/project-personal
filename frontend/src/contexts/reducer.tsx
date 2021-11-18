@@ -1,7 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import { UserReducer } from "./context";
-import { Books, UserState } from "../interfaces";
-
+import { UserState } from "../interfaces";
 export const UserContext = createContext<UserState>({
   isLogin: false,
   name: "",
@@ -20,11 +19,11 @@ export const UserContext = createContext<UserState>({
 });
 
 const initialState: UserState = {
-  isLogin: Boolean(localStorage.getItem("isLogin") === "true" ? true : false),
+  isLogin: false,
   user_id: localStorage.getItem("user_id") || "",
-  name: localStorage.getItem("name") || "",
-  mssv: localStorage.getItem("mssv") || "",
-  email: localStorage.getItem("email") || "",
+  name: "",
+  mssv: "",
+  email: "",
   books: [],
   book: {
     _id: "",
