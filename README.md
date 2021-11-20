@@ -1,5 +1,7 @@
-# NLN
-To do lists
+# Improve skill coding
+
+### To do lists
+
 1. Features
    - [ ] Take a picture for new books [Admin Page]
    - [ ] Search with regex [Make api search]
